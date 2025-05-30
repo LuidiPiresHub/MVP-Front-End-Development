@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.main {
+  display: flex;
+  height: 100dvh;
+}
+
+.loginBanner {
+  flex: 1;
+  background-color: rgb(10, 70, 45);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  text-align: center;
+  gap: 1rem;
+}
+
+.loginFormWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+  background-color: white;
+}
+
+.loginTitle {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: rgb(10, 70, 45);
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.formInput {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.formBtn {
+  padding: 0.75rem;
+  background-color: rgb(10, 70, 45);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (width <= 768px) {
+  .loginBanner {
+    display: none;
+  }
+}
+
+@media (width <= 425px) {
+  .loginFormWrapper {
+    padding: 2rem;
+  }
+
+  .loginTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .formInput {
+    padding: 0.5rem;
+  }
+
+  .formBtn {
+    padding: 0.5rem;
+  }
+}
