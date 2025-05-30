@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-color: rgb(10, 70, 45);
+  color: white;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerTitle {
+  font-size: 2rem;
+}
+
+.loginLink {
+  background-color: rgb(10, 70, 45);
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  height: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.bannerWrapper {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 2rem;
+  background-image: url('../assets/images/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.bannerWrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bannerContent {
+  text-align: center;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bannerTitle {
+  font-size: 4rem;
+}
+
+.bannerText {
+  font-size: 1.3rem;
+  max-width: 500px;
+}
+
+.contentSection {
+  padding: 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+
+.imageWrapper {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.imageName {
+  font-style: italic;
+  color: #555;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: rgb(10, 70, 45);
+}
+
+.paragraph {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.ul,
+.ol {
+  padding-left: 1.5rem;
+  line-height: 1.8;
+}
+
+.li {
+  margin-bottom: 0.5rem;
+}
