@@ -11,6 +11,7 @@
   padding: 1.5rem 3rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .headerTitle {
@@ -120,4 +121,40 @@
 
 .li {
   margin-bottom: 0.5rem;
+}
+
+@media (width <= 768px) {
+  .headerTitle {
+    font-size: 1.5rem;
+  }
+
+  .bannerTitle {
+    font-size: 2.5rem;
+  }
+
+  .bannerText {
+    font-size: 1rem;
+  }
+}
+
+@media (width <= 425px) {
+  .header {
+    padding: 1rem 1.5rem;
+  }
+
+  .headerTitle {
+    font-size: 1.2rem;
+  }
+
+  .bannerWrapper {
+    padding: 1rem;
+  }
+
+  .bannerTitle {
+    font-size: 2rem;
+  }
+
+  .contentSection {
+    padding: 1rem;
+  }
 }
