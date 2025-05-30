@@ -42,6 +42,8 @@ mage-verde-online/
 │   └── main.js
 ├── assets/
 │   └── imagens/
+├── public/
+│   └── favicon.ico
 ```
 
 ## 🧑‍🤝‍🧑 Público-alvo
