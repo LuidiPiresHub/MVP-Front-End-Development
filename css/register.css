@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.main {
+  display: flex;
+  height: 100dvh;
+}
+
+.registerBanner {
+  flex: 1;
+  background-color: rgb(10, 70, 45);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  text-align: center;
+  gap: 1rem;
+}
+
+.registerFormWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  padding: 4rem;
+  background-color: white;
+}
+
+.registerTitle {
+  font-size: 2rem;
+  color: rgb(10, 70, 45);
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.formInput {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.formBtn {
+  padding: 0.75rem;
+  background-color: rgb(10, 70, 45);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.registerLinks {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (width <= 768px) {
+  .registerBanner {
+    display: none;
+  }
+}
+
+@media (width <= 425px) {
+  .registerFormWrapper {
+    padding: 2rem;
+  }
+
+  .registerTitle {
+    font-size: 1.5rem;
+  }
+
+  .formInput {
+    padding: 0.5rem;
+  }
+
+  .formBtn {
+    padding: 0.5rem;
+  }
+}

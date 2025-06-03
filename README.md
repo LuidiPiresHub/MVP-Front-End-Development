@@ -33,6 +33,7 @@ A cidade de Magé conta com locais de preservação ambiental como o Parque Natu
 mage-verde-online/
 ├── index.html           # Página inicial
 ├── login.html           # Login (simulado)
+├── register.html        # Cadastro (simulado)
 ├── admin.html           # Painel administrativo (visual)
 ├── css/
 │   ├── index.css
