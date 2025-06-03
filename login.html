@@ -18,17 +18,21 @@
     <section class="loginFormWrapper">
       <h2 class="loginTitle">Bem-vindo de volta</h2>
       <form class="loginForm">
-        <label class="formLabel">
+        <label for="email" class="formLabel">
           Email
-          <input class="formInput" placeholder="Digite seu E-mail" type="email" name="email" required />
+          <input id="email" class="formInput" placeholder="Digite seu E-mail" type="email" name="email" required />
         </label>
-        <label class="formLabel">
+        <label for="password" class="formLabel">
           Senha
-          <input class="formInput" placeholder="Digite sua senha" type="password" name="password" required minlength="6"
-            maxlength="12" />
+          <input id="password" class="formInput" placeholder="Digite sua senha" type="password" name="password" required
+            minlength="6" maxlength="12" />
         </label>
         <button class="formBtn" type="submit">Entrar</button>
       </form>
+      <div class="loginLinks">
+        <p class="loginText">Não tem uma conta?</p>
+        <a href="register.html" class="loginLink">Cadastre-se</a>
+      </div>
     </section>
   </main>
 </body>

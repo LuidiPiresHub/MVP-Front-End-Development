@@ -28,13 +28,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 2rem;
   padding: 4rem;
   background-color: white;
 }
 
 .loginTitle {
   font-size: 2rem;
-  margin-bottom: 2rem;
   color: rgb(10, 70, 45);
 }
 
@@ -67,6 +67,11 @@
   cursor: pointer;
 }
 
+.loginLinks {
+  display: flex;
+  gap: 0.5rem;
+}
+
 @media (width <= 768px) {
   .loginBanner {
     display: none;
@@ -80,7 +85,6 @@
 
   .loginTitle {
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
   }
 
   .formInput {
