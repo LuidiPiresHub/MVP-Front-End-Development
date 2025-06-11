@@ -3,19 +3,21 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
 }
 
 .header {
   background-color: rgb(10, 70, 45);
   color: white;
-  padding: 1.5rem 3rem;
+  padding: 0.5rem 3rem 1rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.headerTitle {
-  font-size: 2rem;
+.headerLogo {
+  max-width: 250px;
+  width: 100%;
 }
 
 .loginLink {
@@ -32,6 +34,7 @@
 .main {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   min-height: 100dvh;
 }
 
@@ -83,6 +86,82 @@
   margin: auto;
 }
 
+.attractionsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.attractions {
+  display: flex;
+  gap: 2rem;
+}
+
+.attractionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cardImg {
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.cardWrapper {
+  padding-inline: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cardDescription {
+  color: #555;
+}
+
+.events {
+  display: flex;
+  gap: 1rem;
+  margin-block: 1rem 2rem;
+}
+
+.eventsContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.eventsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.1rem;
+}
+
+.eventLi {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.eventImgWrapper {
+  flex: 1;
+}
+
+.eventImg {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.eventDescription {
+  color: #555;
+}
 
 .imageWrapper {
   margin-top: 1rem;
@@ -123,9 +202,71 @@
   margin-bottom: 0.5rem;
 }
 
-@media (width <= 768px) {
-  .headerTitle {
-    font-size: 1.5rem;
+.footer {
+  background-color: #045D38;
+  color: white;
+  padding: 40px 20px 20px;
+  font-family: sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footerImg {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+.footerImgFig {
+  font-size: 14px;
+}
+
+.footerTitle {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 5px;
+}
+
+.footer-links a,
+.footer-social a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-links a:hover,
+.footer-social a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #067849;
+  margin-top: 30px;
+  padding-top: 15px;
+  font-size: 13px;
+}
+
+#trilhas, #cachoeiras, #eventos {
+  scroll-margin-top: 30px;
+}
+
+@media (width <=768px) {
+  .headerLogo {
+    max-width: 200px;
   }
 
   .bannerTitle {
@@ -135,15 +276,23 @@
   .bannerText {
     font-size: 1rem;
   }
+
+  .attractions {
+    flex-direction: column;
+  }
+
+  .events {
+    flex-direction: column-reverse;
+  }
 }
 
-@media (width <= 425px) {
+@media (width <=425px) {
   .header {
     padding: 1rem 1.5rem;
   }
 
-  .headerTitle {
-    font-size: 1.2rem;
+  .headerLogo {
+    max-width: 150px;
   }
 
   .bannerWrapper {
@@ -156,5 +305,9 @@
 
   .contentSection {
     padding: 1rem;
+  }
+
+  .copy {
+    font-size: 0.8rem;
   }
 }
