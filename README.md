@@ -40,7 +40,7 @@ mage-verde-online/
 │   ├── login.css
 │   └── admin.css
 ├── js/
-│   └── main.js
+│   └── login.js
 ├── assets/
 │   └── imagens/
 ├── public/
