@@ -7,13 +7,8 @@ function handleFormSubmit(event) {
   event.preventDefault();
   const { target: { emailInput, passwordInput } } = event;
 
-  if (emailInput.value !== adminEmail) {
-    alert('E-mail incorreto!');
-    return;
-  }
-
-  if (passwordInput.value !== adminPassword) {
-    alert('Senha incorreta!')
+  if (emailInput.value !== adminEmail || passwordInput.value !== adminPassword) {
+    alert('Credenciais inválidas');
     return;
   }
 
