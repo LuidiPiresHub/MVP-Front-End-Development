@@ -67,11 +67,6 @@
   cursor: pointer;
 }
 
-.loginLinks {
-  display: flex;
-  gap: 0.5rem;
-}
-
 @media (width <= 768px) {
   .loginBanner {
     display: none;

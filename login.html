@@ -7,6 +7,7 @@
   <title>Magé Verde - Login</title>
   <link rel="stylesheet" href="css/login.css">
   <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+  <script defer src="js/login.js"></script>
 </head>
 
 <body>
@@ -20,19 +21,15 @@
       <form class="loginForm">
         <label for="email" class="formLabel">
           Email
-          <input id="email" class="formInput" placeholder="Digite seu E-mail" type="email" name="email" required />
+          <input id="email" class="formInput" placeholder="Digite seu E-mail" type="email" name="emailInput" required />
         </label>
         <label for="password" class="formLabel">
           Senha
-          <input id="password" class="formInput" placeholder="Digite sua senha" type="password" name="password" required
+          <input id="password" class="formInput" placeholder="Digite sua senha" type="password" name="passwordInput" required
             minlength="6" maxlength="12" />
         </label>
         <button class="formBtn" type="submit">Entrar</button>
       </form>
-      <div class="loginLinks">
-        <p class="loginText">Não tem uma conta?</p>
-        <a href="register.html" class="loginLink">Cadastre-se</a>
-      </div>
     </section>
   </main>
 </body>
