@@ -94,9 +94,9 @@ mage-verde-online/
 - **Turistas** interessados em explorar a natureza de Magé
 - **Moradores** de Magé em busca de lazer na natureza.
 
-## 🧑‍🤝‍🧑 Informações e objetivos do produto
+## ⚙️ Protótipos 
 
-- Inserir texto aqui
+- O sistema foi desenvolvido com base nas telas de protótipos de homepage, painel administrativo e página de detalhes
 
 ## 💢 Dores do Público-Alvo
 
