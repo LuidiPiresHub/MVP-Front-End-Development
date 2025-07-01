@@ -92,6 +92,7 @@ mage-verde-online/
 ├── public/
 │   └── favicon.ico
 ├── prototipos/
+│   ├── prototipo-administrativo.png
 │   ├── prototipo-detalhes1.png
 │   ├── prototipo-detalhes2.png
 │   ├── prototipo-detalhes3.png
