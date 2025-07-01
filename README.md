@@ -27,30 +27,71 @@ A cidade de Magé conta com locais de preservação ambiental como o Parque Natu
 - CSS3
 - JavaScript (Vanilla JS)
 
+## 🛠️ Prototipos
+
+- Figma
+
 ## 📁 Estrutura do Projeto
 
 ```
 mage-verde-online/
-├── index.html           # Página inicial
-├── login.html           # Login (simulado)
-├── register.html        # Cadastro (simulado)
-├── admin.html           # Painel administrativo (visual)
+├── index.html
+├── login.html
+├── admin.html
+├── aboutUs.html
+├── contact.html
+├── trilhas.html
+├── serra-dos-orgaos.html
+├── barao-de-maua.html
+├── downhill.html
+├── cross-training.html
+├── veu-da-noiva.html
+├── cachoeira-de-andorinhas.html
+├── cachoeira-dos-monjolos.html
 ├── css/
 │   ├── index.css
 │   ├── login.css
-│   └── admin.css
+│   ├── admin.css
+│   ├── aboutUs.css
+│   ├── contact.css
+│   ├── attractions.css
 ├── js/
 │   └── login.js
 ├── assets/
-│   └── imagens/
+│   └── images/
+│       ├── banner.jpg
+│       ├── cachoeira-andorinhas.jpeg
+│       ├── cachoeira-monjolos.jpeg
+│       ├── cachoeira-monjolos2.png
+│       ├── cachoeira-monjolos3.png
+│       ├── cross-training1.png
+│       ├── cross-training2.png
+│       ├── downhill.jpg
+│       ├── evento.jpeg
+│       ├── logo.png
+│       ├── parque-barao.webp
+│       ├── serra-dos-orgaos.png
+│       ├── trilha-monjolos.png
+│       ├── trilha-monjolos2.png
+│       ├── trilhas.jpeg
+│       ├── veu-da-noiva.jpeg
+│       ├── veu-da-noiva2.png
+│       ├── veu-da-noiva3.png
 ├── public/
 │   └── favicon.ico
+├── prototipos/
+├── requisitos/
+├── README.md
 ```
 
 ## 🧑‍🤝‍🧑 Público-alvo
 
 - **Turistas** interessados em explorar a natureza de Magé
 - **Moradores** de Magé em busca de lazer na natureza.
+
+## 🧑‍🤝‍🧑 Informações e objetivos do produto
+
+- Inserir texto aqui
 
 ## 💢 Dores do Público-Alvo
 
