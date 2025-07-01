@@ -10,6 +10,14 @@
   height: 100dvh;
 }
 
+.back {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  color: white;
+  text-decoration: none;
+}
+
 .loginBanner {
   flex: 1;
   background-color: rgb(10, 70, 45);
@@ -70,6 +78,10 @@
 @media (width <= 768px) {
   .loginBanner {
     display: none;
+  }
+
+  .back {
+    color: black;
   }
 }
 
