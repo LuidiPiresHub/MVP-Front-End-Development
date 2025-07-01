@@ -2,6 +2,18 @@
 
 **Magé Verde Online** é um projeto de site informativo focado no ecoturismo do município de Magé (RJ). O objetivo é facilitar o acesso da população e de turistas a informações sobre as principais atrações naturais da região, como trilhas, cachoeiras e parques.
 
+## 🛠 Instruções de acesso ao MVP
+
+```bash
+git clone git@github.com:LuidiPiresHub/MVP-Front-End-Development.git
+```
+
+### Abra o index.html
+
+## 🌐 Link para o projeto em produção
+
+https://mvp-front-end-development.vercel.app
+
 ## 🧑‍💻 Integrantes da Equipe
 - DOUGLAS BERNARD MARTINS TEIXEIRA DA SILVA
 - LUIDI DE SOUZA PIRES 
@@ -27,7 +39,7 @@ A cidade de Magé conta com locais de preservação ambiental como o Parque Natu
 - CSS3
 - JavaScript (Vanilla JS)
 
-## 🛠️ Prototipos
+## 💻 Prototipos
 
 - Figma
 
@@ -106,7 +118,7 @@ mage-verde-online/
 
 ## 🔐 Funcionalidades
 
-- Simulação de login para administradores
+- Simulação de login para administradores ( email: admin@gmail.com - senha: admin123 )
 - Listagem e visualização de atrações naturais
 - Área de administração apenas visual
 - Estrutura leve e responsiva
@@ -114,10 +126,6 @@ mage-verde-online/
 ## 🚀 Status do Projeto
 
 ✅ MVP em desenvolvimento com HTML, CSS e JS.
-
-## 📸 Demonstrações
-
-(Imagens e prints podem ser adicionados aqui futuramente)
 
 ---
 
