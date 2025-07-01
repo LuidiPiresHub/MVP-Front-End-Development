@@ -80,7 +80,12 @@ mage-verde-online/
 ├── public/
 │   └── favicon.ico
 ├── prototipos/
+│   ├── prototipo-detalhes1.png
+│   ├── prototipo-detalhes2.png
+│   ├── prototipo-detalhes3.png
+│   └── prototipo-home.png
 ├── requisitos/
+│   └──Requisitos-MVP-Magé-Verde-Online.xlsx
 ├── README.md
 ```
 
