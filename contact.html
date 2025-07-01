@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato</title>
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <header class="header">
+    <a href="index.html">
+      <img src="assets/images/logo.png" alt="Magé Verde Logo" class="headerLogo">
+    </a>
+    <nav class="headerLinks">
+      <a href="contact.html" class="contactLink">Contato</a>
+      <a href="aboutUs.html" class="aboutUsLink">Quem somos</a>
+      <a href="login.html" class="loginLink">Portal Administrativo</a>
+    </nav>
+  </header>
+  <main class="main">
+    <section class="contactFormSection">
+      <h1 class="contactTitle">Fale Conosco</h1>
+      <p class="contactText">Preencha o formulário abaixo para entrar em contato conosco:</p>
+
+      <form class="contactForm">
+        <label for="name">Nome:</label>
+        <input class="contactInput" type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input class="contactInput" type="email" id="email" name="email" required>
+
+        <label for="message">Mensagem:</label>
+        <textarea class="contactTextarea" id="message" name="message" rows="5" required></textarea>
+
+        <button class="contactButton" type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <section class="contactInfo">
+      <h2 class="contactInfoTitle">Outros meios de contato</h2>
+      <p class="contactText">Email: admin@gmail.com</p>
+      <p class="contactText">Telefone: (21) 99999-9999</p>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <figure>
+        <img src="assets/images/logo.png" alt="Magé Verde Online" class="footerImg" />
+        <figcaption class="footerImgFig">Explorando o ecoturismo de Magé</figcaption>
+      </figure>
+
+      <div class="footer-links">
+        <h4 class="footerTitle">Mapa do Site</h4>
+        <ul>
+          <li><a href="#trilhas">Trilhas</a></li>
+          <li><a href="#cachoeiras">Cachoeiras</a></li>
+          <li><a href="#eventos">Eventos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-social">
+        <h4 class="footerTitle">Redes Sociais</h4>
+        <div class="social-icons">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="copy">© 2025 Magé Verde Online. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+
+</html>

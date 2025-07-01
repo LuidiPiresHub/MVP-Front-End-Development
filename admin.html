@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+  <title>Magé Verde - Admin</title>
+</head>
+
+<body>
+  <header class="header">
+    <h1 class="headerTitle">Painel Administrativo</h1>
+    <a href="index.html" class="logoutBtn">Sair</a>
+  </header>
+  <main class="main">
+    <h2 class="subtitle">Gestão de Disponibilidade</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="th">Atração</th>
+          <th class="th">Dias</th>
+          <th class="th">Horário</th>
+          <th class="th">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td">Trilha do Sol</td>
+          <td class="td">Seg a Sex</td>
+          <td class="td">08:00 - 17:00</td>
+          <td class="td actions">
+            <button class="edit-btn">Editar</button>
+            <button class="delete-btn">Excluir</button>
+          </td>
+        </tr>
+        <tr>
+          <td class="td">Cachoeira Azul</td>
+          <td class="td">Sáb e Dom</td>
+          <td class="td">09:00 - 18:00</td>
+          <td class="td actions">
+            <button class="edit-btn">Editar</button>
+            <button class="delete-btn">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <section class="form-section">
+      <h3>Publicar Atração</h3>
+      <form class="form">
+        <label class="label" for="title">
+          Titulo
+          <input id="title" type="text" placeholder="Titulo da atração" class="input">
+        </label>
+
+        <label for="image" class="label">
+          Imagem da atração
+          <input id="image" type="file" accept="image/*" placeholder="Imagem" class="input">
+        </label>
+
+        <label for="description" class="label">
+          Descrição
+          <textarea id="description" placeholder="Descrição da atração..." class="textarea"></textarea>
+        </label>
+
+        <span>Dias Disponíveis:</span>
+        <div class="checkbox-group">
+          <label for="seg"><input id="seg" type="checkbox" checked /> Seg</label>
+          <label for="ter"><input id="ter" type="checkbox" checked /> Ter</label>
+          <label for="quar"><input id="qua" type="checkbox" checked /> Qua</label>
+          <label for="qui"><input id="qui" type="checkbox" checked /> Qui</label>
+          <label for="sex"><input id="sex" type="checkbox" checked /> Sex</label>
+          <label for="sab"><input id="sab" type="checkbox" checked /> Sab</label>
+          <label for="dom"><input id="dom" type="checkbox" checked /> Dom</label>
+        </div>
+
+        <label for="openTime" class="label">
+          Horário de Abertura:
+          <input id="openTime" type="time" value="08:00" />
+        </label>
+
+        <label for="closeTime" class="label">
+          Horário de Fechamento:
+          <input id="closeTime" type="time" value="17:00" />
+        </label>
+
+        <button type="submit" class="save-btn">Salvar</button>
+      </form>
+    </section>
+  </main>
+</body>
+
+</html>
