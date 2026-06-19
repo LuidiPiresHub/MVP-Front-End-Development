@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magé Verde - Visitante</title>
+  <link rel="stylesheet" href="css/visitante.css">
+  <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+  <script defer src="js/visitante.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (Visitante.estaLogado()) {
+        window.location.href = 'visitante.html';
+        return;
+      }
+
+      const form = document.getElementById('loginForm');
+      const alertBox = document.getElementById('alert');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+
+        try {
+          const res = await fetch('http://localhost:5000/visitantes/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, senha }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            alertBox.className = 'alert alertError';
+            alertBox.textContent = data.error || 'Credenciais inválidas.';
+            alertBox.style.display = 'block';
+            return;
+          }
+
+          Visitante.salvarSessao(data);
+          window.location.href = 'visitante.html';
+        } catch (error) {
+          alertBox.className = 'alert alertError';
+          alertBox.textContent = 'Erro de conexão com o servidor.';
+          alertBox.style.display = 'block';
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html">
+      <img src="assets/images/logo.png" alt="Magé Verde Logo" class="headerLogo">
+    </a>
+    <nav class="headerLinks">
+      <a href="contact.html">Contato</a>
+      <a href="aboutUs.html">Quem somos</a>
+      <a href="login.html" class="btnLink">Portal Administrativo</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <h1 class="pageTitle">Área do Visitante</h1>
+    <p class="pageSubtitle">Faça login para avaliar e comentar as atrações.</p>
+
+    <div id="alert" class="alert"></div>
+
+    <form id="loginForm" class="form">
+      <div class="formGroup">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="seu@email.com" required>
+      </div>
+
+      <div class="formGroup">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" placeholder="Sua senha" required>
+      </div>
+
+      <button type="submit" class="formBtn">Entrar</button>
+    </form>
+
+    <p class="formFooter">
+      Não tem conta? <a href="cadastro.html">Cadastre-se</a>
+    </p>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <figure>
+        <img src="assets/images/logo.png" alt="Magé Verde Online" class="footerImg" />
+        <figcaption class="footerImgFig">Explorando o ecoturismo de Magé</figcaption>
+      </figure>
+      <div class="footer-links">
+        <h4 class="footerTitle">Mapa do Site</h4>
+        <ul>
+          <li><a href="index.html#trilhas">Trilhas</a></li>
+          <li><a href="index.html#cachoeiras">Cachoeiras</a></li>
+          <li><a href="index.html#eventos">Eventos</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4 class="footerTitle">Redes Sociais</h4>
+        <div class="social-icons">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">&copy; 2025 Magé Verde Online. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

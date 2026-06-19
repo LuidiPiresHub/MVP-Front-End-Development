@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magé Verde - Avaliar Atrações</title>
+  <link rel="stylesheet" href="css/visitante.css">
+  <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+  <script defer src="js/visitante.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const lista = document.getElementById('atracoesLista');
+      const filtroSelect = document.getElementById('filtroTipo');
+
+      async function carregarAtracoes(tipoFiltro = '') {
+        const url = tipoFiltro ? `/atracoes?tipo=${tipoFiltro}` : '/atracoes';
+        const atracoes = await Visitante.request(url);
+
+        lista.innerHTML = '';
+
+        for (const atracao of atracoes) {
+          const card = document.createElement('div');
+          card.className = 'atracaoCard';
+
+          const tipoLabel = { TRILHA: 'Trilha', CACHOEIRA: 'Cachoeira', EVENTO: 'Evento' }[atracao.tipo] || atracao.tipo;
+
+          let estrelasHTML = '';
+          for (let i = 1; i <= 5; i++) {
+            const ativa = i <= Math.round(atracao.mediaAvaliacao) ? 'ativa' : '';
+            estrelasHTML += `<span class="estrela ${ativa}" data-nota="${i}">&#9733;</span>`;
+          }
+
+          const minhasEstrelasHTML = Visitante.estaLogado()
+            ? `
+              <div class="avaliacaoArea">
+                <p><strong>Minha avaliação:</strong></p>
+                <div class="estrelas" data-atracao-id="${atracao.id}" data-nota="0">
+                  ${[1,2,3,4,5].map(n => `<span class="estrela" data-nota="${n}">&#9733;</span>`).join('')}
+                </div>
+                <button class="formBtn" style="margin-top:0.5rem;padding:0.5rem 1rem;font-size:0.85rem;" onclick="avaliar(${atracao.id})">Enviar Avaliação</button>
+              </div>
+            ` : '';
+
+          card.innerHTML = `
+            <img src="${atracao.imagem || 'assets/images/placeholder.jpg'}" alt="${atracao.nome}" onerror="this.src='assets/images/placeholder.jpg'">
+            <div class="atracaoInfo">
+              <span class="tipo">${tipoLabel}</span>
+              <h3>${atracao.nome}</h3>
+              <p>${atracao.descricao}</p>
+              <p><strong>Local:</strong> ${atracao.localizacao}</p>
+              <div class="media">
+                <span class="estrelasMedia">${'&#9733;'.repeat(Math.round(atracao.mediaAvaliacao))}${'&#9734;'.repeat(5 - Math.round(atracao.mediaAvaliacao))}</span>
+                <span>(${atracao.mediaAvaliacao.toFixed(1)} - ${atracao.totalAvaliacoes} avaliação${atracao.totalAvaliacoes !== 1 ? 'ões' : ''})</span>
+              </div>
+              ${minhasEstrelasHTML}
+              <div class="comentariosArea" id="comentarios-${atracao.id}">
+                <p><strong>Comentários</strong></p>
+                <div id="comentariosLista-${atracao.id}"></div>
+                ${Visitante.estaLogado() ? `
+                  <div style="margin-top:0.5rem;">
+                    <textarea id="comentarioInput-${atracao.id}" placeholder="Deixe seu comentário..." style="width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:5px;resize:vertical;min-height:60px;"></textarea>
+                    <button class="formBtn" style="margin-top:0.3rem;padding:0.5rem 1rem;font-size:0.85rem;" onclick="comentar(${atracao.id})">Comentar</button>
+                  </div>
+                ` : '<p style="color:#999;font-size:0.85rem;"><a href="visitante-login.html">Faça login</a> para comentar e avaliar.</p>'}
+              </div>
+            </div>
+          `;
+
+          lista.appendChild(card);
+
+          carregarComentarios(atracao.id);
+
+          if (Visitante.estaLogado()) {
+            const estrelasContainer = card.querySelector('.estrelas');
+            if (estrelasContainer) {
+              const spans = estrelasContainer.querySelectorAll('.estrela');
+              spans.forEach(span => {
+                span.addEventListener('click', () => {
+                  const nota = parseInt(span.dataset.nota);
+                  estrelasContainer.dataset.nota = nota;
+                  spans.forEach((s, idx) => {
+                    s.classList.toggle('ativa', idx < nota);
+                  });
+                });
+                span.addEventListener('mouseenter', () => {
+                  const nota = parseInt(span.dataset.nota);
+                  spans.forEach((s, idx) => {
+                    s.classList.toggle('ativa', idx < nota);
+                  });
+                });
+                span.addEventListener('mouseleave', () => {
+                  const selecionada = parseInt(estrelasContainer.dataset.nota);
+                  spans.forEach((s, idx) => {
+                    s.classList.toggle('ativa', idx < selecionada);
+                  });
+                });
+              });
+            }
+          }
+        }
+      }
+
+      window.avaliar = async (atracaoId) => {
+        if (!Visitante.estaLogado()) {
+          window.location.href = 'visitante-login.html';
+          return;
+        }
+
+        const perfil = Visitante.getPerfil();
+        const container = document.querySelector(`.estrelas[data-atracao-id="${atracaoId}"]`);
+        const nota = parseInt(container.dataset.nota);
+
+        if (!nota) {
+          alert('Selecione uma nota (1 a 5 estrelas).');
+          return;
+        }
+
+        try {
+          await Visitante.request('/avaliacoes', {
+            method: 'POST',
+            body: JSON.stringify({
+              nomeUsuario: perfil.nome,
+              nota,
+              atracaoId,
+            }),
+          });
+          alert('Avaliação enviada com sucesso!');
+          carregarAtracoes(filtroSelect.value);
+        } catch (err) {
+          alert(err.message);
+        }
+      };
+
+      window.comentar = async (atracaoId) => {
+        if (!Visitante.estaLogado()) {
+          window.location.href = 'visitante-login.html';
+          return;
+        }
+
+        const perfil = Visitante.getPerfil();
+        const input = document.getElementById(`comentarioInput-${atracaoId}`);
+        const comentario = input.value.trim();
+
+        if (!comentario) {
+          alert('Digite um comentário.');
+          return;
+        }
+
+        try {
+          await Visitante.request('/comentarios', {
+            method: 'POST',
+            body: JSON.stringify({
+              nomeUsuario: perfil.nome,
+              comentario,
+              atracaoId,
+            }),
+          });
+          input.value = '';
+          carregarComentarios(atracaoId);
+        } catch (err) {
+          alert(err.message);
+        }
+      };
+
+      window.carregarComentarios = async (atracaoId) => {
+        try {
+          const comentarios = await Visitante.request(`/comentarios/${atracaoId}`);
+          const lista = document.getElementById(`comentariosLista-${atracaoId}`);
+
+          if (comentarios.length === 0) {
+            lista.innerHTML = '<p style="color:#999;font-size:0.85rem;">Nenhum comentário ainda.</p>';
+            return;
+          }
+
+          const perfil = Visitante.getPerfil();
+          const userId = perfil ? perfil.id : null;
+
+          lista.innerHTML = comentarios.map(c => {
+            const isOwner = c.visitante && c.visitante.id === userId;
+            const autorNome = c.visitante ? c.visitante.nome : c.nomeUsuario;
+
+            return `
+              <div class="comentarioItem" id="comentario-${c.id}">
+                <div class="author">${autorNome}</div>
+                <div class="date">${new Date(c.createdAt).toLocaleString('pt-BR')}</div>
+                <div class="text" id="comentarioTexto-${c.id}">${c.comentario}</div>
+                ${isOwner ? `
+                  <div class="actions">
+                    <button onclick="editarComentario(${c.id})">Editar</button>
+                    <button class="deleteBtn" onclick="excluirComentario(${c.id})">Excluir</button>
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          }).join('');
+        } catch (err) {
+          console.error('Erro ao carregar comentários:', err);
+        }
+      };
+
+      window.editarComentario = (id) => {
+        const textoEl = document.getElementById(`comentarioTexto-${id}`);
+        const textoAtual = textoEl.textContent;
+        textoEl.innerHTML = `
+          <textarea id="editInput-${id}" style="width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:5px;resize:vertical;min-height:60px;">${textoAtual}</textarea>
+          <div style="margin-top:0.3rem;display:flex;gap:0.5rem;">
+            <button class="formBtn" style="padding:0.3rem 0.8rem;font-size:0.8rem;" onclick="salvarEdicao(${id})">Salvar</button>
+            <button class="formBtn formBtnSecondary" style="padding:0.3rem 0.8rem;font-size:0.8rem;" onclick="cancelarEdicao(${id}, '${textoAtual}')">Cancelar</button>
+          </div>
+        `;
+      };
+
+      window.salvarEdicao = async (id) => {
+        const texto = document.getElementById(`editInput-${id}`).value.trim();
+        if (!texto) return;
+
+        try {
+          await Visitante.request(`/comentarios/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ comentario: texto }),
+          });
+          const textoEl = document.getElementById(`comentarioTexto-${id}`);
+          textoEl.innerHTML = texto;
+          const actions = textoEl.parentElement.querySelector('.actions');
+          if (actions) actions.style.display = 'flex';
+        } catch (err) {
+          alert(err.message);
+        }
+      };
+
+      window.cancelarEdicao = (id, textoOriginal) => {
+        const textoEl = document.getElementById(`comentarioTexto-${id}`);
+        textoEl.innerHTML = textoOriginal;
+        const actions = textoEl.parentElement.querySelector('.actions');
+        if (actions) actions.style.display = 'flex';
+      };
+
+      window.excluirComentario = async (id) => {
+        if (!confirm('Tem certeza que deseja excluir este comentário?')) return;
+
+        try {
+          await fetch(`http://localhost:5000/comentarios/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('@PortalTurismo:token')}`,
+              'Content-Type': 'application/json',
+            },
+          });
+          document.getElementById(`comentario-${id}`).remove();
+        } catch (err) {
+          alert('Erro ao excluir comentário.');
+        }
+      };
+
+      filtroSelect.addEventListener('change', () => {
+        carregarAtracoes(filtroSelect.value);
+      });
+
+      carregarAtracoes();
+    });
+  </script>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html">
+      <img src="assets/images/logo.png" alt="Magé Verde Logo" class="headerLogo">
+    </a>
+    <nav class="headerLinks">
+      <a href="avaliar.html">Avaliar Atrações</a>
+      ${Visitante.estaLogado ? `
+        <a href="visitante.html">Meu Perfil</a>
+        <a href="#" onclick="Visitante.logout()" class="btnLink">Sair</a>
+      ` : `
+        <a href="visitante-login.html" class="btnLink">Área do Visitante</a>
+        <a href="cadastro.html" class="btnLink">Cadastre-se</a>
+      `}
+      <a href="login.html" class="btnLink">Portal Administrativo</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <h1 class="pageTitle">Avaliar Atrações</h1>
+    <p class="pageSubtitle">Veja a média das avaliações e dê sua nota para trilhas, cachoeiras e eventos de Magé.</p>
+
+    <div style="margin-bottom:1.5rem;">
+      <label for="filtroTipo" style="font-weight:bold;">Filtrar por tipo:</label>
+      <select id="filtroTipo" style="margin-left:0.5rem;padding:0.5rem;border:1px solid #ccc;border-radius:5px;">
+        <option value="">Todas</option>
+        <option value="TRILHA">Trilhas</option>
+        <option value="CACHOEIRA">Cachoeiras</option>
+        <option value="EVENTO">Eventos</option>
+      </select>
+    </div>
+
+    <div id="atracoesLista" class="atracoesLista">
+      <p>Carregando atrações...</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <figure>
+        <img src="assets/images/logo.png" alt="Magé Verde Online" class="footerImg" />
+        <figcaption class="footerImgFig">Explorando o ecoturismo de Magé</figcaption>
+      </figure>
+      <div class="footer-links">
+        <h4 class="footerTitle">Mapa do Site</h4>
+        <ul>
+          <li><a href="index.html#trilhas">Trilhas</a></li>
+          <li><a href="index.html#cachoeiras">Cachoeiras</a></li>
+          <li><a href="index.html#eventos">Eventos</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4 class="footerTitle">Redes Sociais</h4>
+        <div class="social-icons">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">&copy; 2025 Magé Verde Online. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

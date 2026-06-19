@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magé Verde - Cadastro</title>
+  <link rel="stylesheet" href="css/visitante.css">
+  <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+  <script defer src="js/visitante.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('cadastroForm');
+      const alertBox = document.getElementById('alert');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+        const confirmarSenha = document.getElementById('confirmarSenha').value;
+        const cidade = document.getElementById('cidade').value;
+
+        if (senha !== confirmarSenha) {
+          alertBox.className = 'alert alertError';
+          alertBox.textContent = 'As senhas não conferem.';
+          alertBox.style.display = 'block';
+          return;
+        }
+
+        if (senha.length < 6) {
+          alertBox.className = 'alert alertError';
+          alertBox.textContent = 'A senha deve ter no mínimo 6 caracteres.';
+          alertBox.style.display = 'block';
+          return;
+        }
+
+        try {
+          const response = await fetch('http://localhost:5000/visitantes/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome, email, senha, cidade }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            alertBox.className = 'alert alertError';
+            alertBox.textContent = data.error || 'Erro ao cadastrar.';
+            alertBox.style.display = 'block';
+            return;
+          }
+
+          alertBox.className = 'alert alertSuccess';
+          alertBox.textContent = 'Cadastro realizado com sucesso! Redirecionando...';
+          alertBox.style.display = 'block';
+
+          setTimeout(() => {
+            window.location.href = 'visitante-login.html';
+          }, 1500);
+        } catch (error) {
+          alertBox.className = 'alert alertError';
+          alertBox.textContent = 'Erro de conexão com o servidor.';
+          alertBox.style.display = 'block';
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html">
+      <img src="assets/images/logo.png" alt="Magé Verde Logo" class="headerLogo">
+    </a>
+    <nav class="headerLinks">
+      <a href="contact.html">Contato</a>
+      <a href="aboutUs.html">Quem somos</a>
+      <a href="login.html" class="btnLink">Portal Administrativo</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <h1 class="pageTitle">Criar Conta</h1>
+    <p class="pageSubtitle">Cadastre-se para avaliar e comentar sobre as atrações de Magé.</p>
+
+    <div id="alert" class="alert"></div>
+
+    <form id="cadastroForm" class="form">
+      <div class="formGroup">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" placeholder="Seu nome" required>
+      </div>
+
+      <div class="formGroup">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="seu@email.com" required>
+      </div>
+
+      <div class="formGroup">
+        <label for="cidade">Cidade / Local onde mora</label>
+        <input type="text" id="cidade" placeholder="Ex: Magé, RJ">
+      </div>
+
+      <div class="formGroup">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" placeholder="Mínimo 6 caracteres" minlength="6" required>
+      </div>
+
+      <div class="formGroup">
+        <label for="confirmarSenha">Confirmar senha</label>
+        <input type="password" id="confirmarSenha" placeholder="Repita a senha" minlength="6" required>
+      </div>
+
+      <button type="submit" class="formBtn">Cadastrar</button>
+    </form>
+
+    <p class="formFooter">
+      Já tem conta? <a href="visitante-login.html">Faça login</a>
+    </p>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <figure>
+        <img src="assets/images/logo.png" alt="Magé Verde Online" class="footerImg" />
+        <figcaption class="footerImgFig">Explorando o ecoturismo de Magé</figcaption>
+      </figure>
+      <div class="footer-links">
+        <h4 class="footerTitle">Mapa do Site</h4>
+        <ul>
+          <li><a href="index.html#trilhas">Trilhas</a></li>
+          <li><a href="index.html#cachoeiras">Cachoeiras</a></li>
+          <li><a href="index.html#eventos">Eventos</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4 class="footerTitle">Redes Sociais</h4>
+        <div class="social-icons">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">&copy; 2025 Magé Verde Online. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

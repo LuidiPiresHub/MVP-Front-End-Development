@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magé Verde - Meu Perfil</title>
+  <link rel="stylesheet" href="css/visitante.css">
+  <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+  <script defer src="js/visitante.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!Visitante.redirecionarSeNaoLogado()) return;
+
+      const perfil = Visitante.getPerfil();
+      const alertBox = document.getElementById('alert');
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      function renderPerfil() {
+        document.getElementById('perfilNome').textContent = perfil.nome;
+        document.getElementById('perfilEmail').textContent = perfil.email;
+        document.getElementById('perfilCidade').textContent = perfil.cidade || 'Não informado';
+
+        const avatar = document.getElementById('perfilAvatar');
+        if (perfil.foto) {
+          avatar.innerHTML = `<img src="${perfil.foto}" alt="${perfil.nome}">`;
+        } else {
+          avatar.textContent = perfil.nome.charAt(0).toUpperCase();
+        }
+
+        document.getElementById('nome').value = perfil.nome;
+        document.getElementById('cidade').value = perfil.cidade || '';
+      }
+
+      renderPerfil();
+
+      document.getElementById('editarForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const nome = document.getElementById('nome').value;
+        const cidade = document.getElementById('cidade').value;
+        const foto = document.getElementById('foto').value;
+
+        try {
+          const data = await Visitante.request('/visitantes/profile', {
+            method: 'PUT',
+            body: JSON.stringify({ nome, cidade, foto }),
+          });
+
+          const stored = Visitante.getPerfil();
+          Visitante.salvarSessao({ token: Visitante.getToken(), visitante: { ...stored, ...data } });
+
+          alertBox.className = 'alert alertSuccess';
+          alertBox.textContent = 'Perfil atualizado com sucesso!';
+          alertBox.style.display = 'block';
+          renderPerfil();
+        } catch (err) {
+          alertBox.className = 'alert alertError';
+          alertBox.textContent = err.message;
+          alertBox.style.display = 'block';
+        }
+      });
+
+      logoutBtn.addEventListener('click', () => Visitante.logout());
+    });
+  </script>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html">
+      <img src="assets/images/logo.png" alt="Magé Verde Logo" class="headerLogo">
+    </a>
+    <nav class="headerLinks">
+      <a href="avaliar.html">Avaliar Atrações</a>
+      <a href="visitante.html">Meu Perfil</a>
+      <a href="#" id="logoutBtn" class="btnLink">Sair</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <h1 class="pageTitle">Meu Perfil</h1>
+
+    <div class="perfilInfo">
+      <div class="perfilAvatar" id="perfilAvatar"></div>
+      <div class="perfilDados">
+        <h2 id="perfilNome"></h2>
+        <p><strong>E-mail:</strong> <span id="perfilEmail"></span></p>
+        <p><strong>Cidade:</strong> <span id="perfilCidade"></span></p>
+      </div>
+    </div>
+
+    <div id="alert" class="alert"></div>
+
+    <h2 class="pageSubtitle">Editar Perfil</h2>
+    <form id="editarForm" class="form">
+      <div class="formGroup">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" required>
+      </div>
+
+      <div class="formGroup">
+        <label for="cidade">Cidade / Local</label>
+        <input type="text" id="cidade">
+      </div>
+
+      <div class="formGroup">
+        <label for="foto">URL da foto de perfil</label>
+        <input type="url" id="foto" placeholder="https://exemplo.com/minha-foto.jpg">
+      </div>
+
+      <button type="submit" class="formBtn">Salvar</button>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <figure>
+        <img src="assets/images/logo.png" alt="Magé Verde Online" class="footerImg" />
+        <figcaption class="footerImgFig">Explorando o ecoturismo de Magé</figcaption>
+      </figure>
+      <div class="footer-links">
+        <h4 class="footerTitle">Mapa do Site</h4>
+        <ul>
+          <li><a href="index.html#trilhas">Trilhas</a></li>
+          <li><a href="index.html#cachoeiras">Cachoeiras</a></li>
+          <li><a href="index.html#eventos">Eventos</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4 class="footerTitle">Redes Sociais</h4>
+        <div class="social-icons">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">&copy; 2025 Magé Verde Online. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>
